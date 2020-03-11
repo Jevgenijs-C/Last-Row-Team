@@ -28,15 +28,70 @@ public class RegisterPage {
     @FindBy(how = How.ID, using = "input-confirm")
     private WebElement passwordConfirm;
     @FindBy(how = How.CSS, using = "#content > form > fieldset:nth-child(3) > div")
-    private WebElement radioButton;
+    private WebElement radioButtonSub;
     @FindBy(how = How.NAME, using = "agree")
-    private WebElement checkbox;
+    private WebElement checkboxAgree;
+    @FindBy (how = How.CLASS_NAME, using = "btn-primary")
+    private WebElement continueButton;
+    @FindBy (how = How.XPATH, using = "/html/body/div[2]/div/div/form/fieldset[1]/div[5]/div/div")
+    private WebElement phoneDanger;
 
     private WebDriver driver;
 
-
-
+    public WebElement getContinueButton() {
+        return continueButton;
     }
+
+    public WebElement getRegisterButton() {
+        return registerButton;
+    }
+
+    public WebElement getRegisterButtonPre() {
+        return registerButtonPre;
+    }
+
+    public WebElement getFirstName() {
+        return firstName;
+    }
+
+    public WebElement getSecondName() {
+        return secondName;
+    }
+
+    public WebElement getEmail() {
+        return email;
+    }
+
+    public WebElement getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public WebElement getPassword() {
+        return password;
+    }
+
+    public WebElement getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public WebElement getRadioButton() {
+        return radioButtonSub;
+    }
+
+    public WebElement getCheckbox() {
+        return checkboxAgree;
+    }
+
+    public WebElement getPhoneDanger() {
+        return phoneDanger;
+    }
+
+    public void prepareToRegistration(String name, String seconName) {
+        firstName.sendKeys(name);
+        secondName.sendKeys(seconName);
+        checkboxAgree.click();
+    }
+}
 
 
 
