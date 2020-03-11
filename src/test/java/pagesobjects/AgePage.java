@@ -26,7 +26,7 @@ public class AgePage {
     private WebElement loginConfirm;
 
     private WebDriver driver;
-
+//test
 
     public void loggingIn(String email, String password) throws InterruptedException {
         //Thread.sleep(1000);
