@@ -1,6 +1,6 @@
 package pagesobjects;
 
-//import org.apache.xpath.operations.String;
+
 import gherkin.lexer.Th;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,9 +10,8 @@ import org.openqa.selenium.support.How;
 
 
 public class AgePage {
-    @FindBy(how = How.CSS, using = "#top-links > ul > li.dropdown.open > ul > li:nth-child(2) > a")
+    @FindBy(how = How.CSS, using = ".dropdown-menu a[href*=\"login\"]")
     private WebElement loginBtn;
-//    @FindBy(how = How.CSS, using = "#top-links > ul > li.dropdown > a > span.hidden-xs.hidden-sm.hidden-md")
     @FindBy(how = How.CSS, using = ".caret")
     private WebElement loginBtnPre;
     @FindBy(how = How.NAME, using = "email")
@@ -22,23 +21,17 @@ public class AgePage {
     public java.lang.String getPageUrl() {
         return "http://demoshop24.com/";
     }
-    @FindBy(how = How.CSS, using = "#content > div > div:nth-child(2) > div > form > input")
+    @FindBy(how = How.CSS, using = "[value=\"Login\"]")
     private WebElement loginConfirm;
 
     private WebDriver driver;
 
 
     public void loggingIn(String email, String password) throws InterruptedException {
-        //Thread.sleep(1000);
-     //   driver.get("http://demoshop24.com/");
-        //Thread.sleep(1000);
         loginBtnPre.click();
         loginBtn.click();
-       // Thread.sleep(1000);
         emailField.sendKeys(email);
-       // Thread.sleep(1000);
         passwordField.sendKeys(password);
-       // Thread.sleep(1000);
         loginConfirm.click();
     }
 }
