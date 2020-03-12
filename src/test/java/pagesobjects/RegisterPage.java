@@ -33,8 +33,8 @@ public class RegisterPage {
     private WebElement checkboxAgree;
     @FindBy (how = How.CLASS_NAME, using = "btn-primary")
     private WebElement continueButton;
-    @FindBy (how = How.XPATH, using = "/html/body/div[2]/div/div/form/fieldset[1]/div[5]/div/div")
-    private WebElement phoneDanger;
+    //@FindBy (how = How.XPATH, using = "/html/body/div[2]/div/div/form/fieldset[1]/div[5]/div/div")
+    //private WebElement phoneDanger;
 
     private WebDriver driver;
 
