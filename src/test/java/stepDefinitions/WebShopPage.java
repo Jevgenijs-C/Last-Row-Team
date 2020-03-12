@@ -31,7 +31,7 @@ public class WebShopPage {
     private WebElement topCheckoutButton;
     @FindBy(how = How.CSS, using = "#collapse-checkout-option > div > div > div:nth-child(2)")
     private WebElement returningCustomer;
-
+//d
 
     public void existanceTopCheckoutLink() {
         topCheckoutLink.isEnabled();

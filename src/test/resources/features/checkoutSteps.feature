@@ -85,6 +85,7 @@ Feature:
     And User pressing Continue without toggling  "Terms & Conditions"
     Then Getting error
 
+
   Scenario: Checkout process with out of stock products
     When Press Tablets in top bar menu
     And Choose "Samsung Galaxy Tab 10.1" and add it to cart

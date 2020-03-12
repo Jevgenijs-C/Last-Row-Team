@@ -250,7 +250,7 @@ public class checkoutStepsDifinitions {
     public void shouldBeOptionToChoosePaymentMethodOnlyOneCash() throws InterruptedException {
         Thread.sleep(2500);
     }
-//////////////////////////////////Marking "I have read and agree to the Terms & Conditions" box/////////////////////
+//////////////////////////////////Marking "I have read and agree to the Terms & Conditions" box///////////////////
 
     @And("^User pressing Continue without toggling  \"([^\"]*)\"$")
     public void userPressingContinueWithoutToggling(String arg0) throws Throwable {
