@@ -1,59 +1,100 @@
 package pagesobjects;
 
 import gherkin.lexer.Th;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.sql.Driver;
+import java.time.Instant;
+import java.util.concurrent.TimeUnit;
 
 import static junit.framework.TestCase.assertEquals;
 
 
-public class CouponObjects {
-    @FindBy(how = How.CSS, using = "#menu > div.collapse.navbar-collapse.navbar-ex1-collapse > ul > li:nth-child(3) > a")
+public class CouponObjects<startTime> {
+    @FindBy(how = How.CSS, using = "li:nth-of-type(3) > .dropdown-toggle")
     private WebElement components;
-    @FindBy(how = How.CSS, using = "#menu > div.collapse.navbar-collapse.navbar-ex1-collapse > ul > li:nth-child(3) > div > div > ul > li:nth-child(2) > a")
+    @FindBy(how = How.XPATH, using = "//a[contains(text(), 'Monitors')]")
     private WebElement monitors;
     @FindBy(how = How.CSS, using = "#content > div:nth-child(5) > div:nth-child(2) > div > div:nth-child(2) > div.button-group > button:nth-child(1)")
     private WebElement samsungMon;
     @FindBy(how = How.CSS, using = "#cart > button")
     private WebElement cart;
-    @FindBy(how = How.CSS, using = "#cart > ul > li:nth-child(2) > div > p > a:nth-child(1) > strong")
+    @FindBy(how = How.CSS, using = ".list-inline .fa.fa-shopping-cart")
     private WebElement viewcart;
-    @FindBy(how = How.CSS, using = "#accordion > div:nth-child(1) > div.panel-heading > h4 > a")
+    @FindBy(how = How.CSS, using = ".panel a[href*=\"#collapse-coupon\"]")
     private WebElement opencoupon;
     @FindBy(how = How.NAME, using = "coupon")
     private WebElement couponField;
     @FindBy(how = How.ID, using = "button-coupon")
     private WebElement couponBtn;
-    @FindBy(how = How.CSS, using = "#content > div.row > div > table > tbody > tr:nth-child(3) > td:nth-child(2)")
+    @FindBy(how = How.CSS, using = ".col-sm-4 tr:nth-child(3) > .text-right:nth-child(2)")
     private WebElement priceTotal;
-    @FindBy(how = How.CLASS_NAME, using = "fa fa-times-circle")
+    @FindBy(how = How.CSS, using = ".input-group .btn-danger")
     private WebElement removeBtn;
-    private WebDriver driver;
+    @FindBy(how = How.CSS, using = ".panel a[href*=\"#collapse-shipping\"]")
+    private WebElement openshipping;
+    @FindBy(how = How.XPATH, using = "//button[@id='button-quote']")
+    private WebElement quoteBtn;
+    @FindBy(how = How.CSS, using = "input[name='shipping_method']")
+    private WebElement shippingRadio;
+    @FindBy(how = How.CSS, using = "#button-shipping")
+    private WebElement shippingConfirm;
+    @FindBy(how = How.CSS, using = "#content > div.row > div > table > tbody > tr:nth-child(1) > td:nth-child(2)")
+    private WebElement startprice;
+    @FindBy(how = How.CSS, using = "#content > div.row > div > table > tbody > tr:nth-child(4) > td:nth-child(2)")
+    private WebElement finalprice;
 
-    public void gotoMonitors(){
+    private WebDriver driver;
+    private WebDriverWait wait;
+    private JavascriptExecutor js;
+
+    public void setDriver(WebDriver driver) {
+        this.driver = driver;
+        wait = (WebDriverWait) new WebDriverWait(driver, 10).ignoring(StaleElementReferenceException.class);
+    }
+
+
+    public void gotoMonitors() {
         components.click();
         monitors.click();
     }
-    public void addSamsungtoCart(){
+
+    public void addSamsungtoCart() {
         samsungMon.click();
     }
-    public void goToCart(){
-        cart.click();
+
+    public void goToCart() {
         viewcart.click();
     }
+
     public void applyCoupon(String coupon) throws InterruptedException {
         opencoupon.click();
         couponField.sendKeys(coupon);
         couponBtn.click();
     }
-    public void priceCheck(String price) throws InterruptedException {
-        assertEquals(price,priceTotal.getText());
+
+    public void priceCheck(String price) throws Exception {
+        assertEquals(price, priceTotal.getText());
     }
-    public void removeItem(){
+
+    public void removeItem() {
         removeBtn.click();
+    }
+
+    public void shippingCheck() throws Exception {
+        openshipping.click();
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//button[@id='button-quote']")));
+        quoteBtn.click();
+        shippingRadio.click();
+        shippingConfirm.click();
+        assertEquals(startprice.getText(), finalprice.getText());
+
     }
 
 }
