@@ -15,14 +15,15 @@ import pagesobjects.RegisterPage;
 public class RegistrationSteps {
 
 
-private WebDriver driver;
+    private WebDriver driver;
 
-   static RegisterPage registerPage;
+    private static RegisterPage registerPage;
 
-   public RegistrationSteps() {
-       this.driver = Hooks.driver;
-       registerPage = PageFactory.initElements(Hooks.driver, RegisterPage.class);
-}
+    public RegistrationSteps() {
+        this.driver = Hooks.driver;
+        registerPage = PageFactory.initElements(Hooks.driver, RegisterPage.class);
+    }
+
     @Given("^I go to web app$")
     public void iGoToWebApp() {
         driver.get("http://demoshop24.com/");
@@ -36,14 +37,14 @@ private WebDriver driver;
 
     @Then("^I check if fields is available$")
     public void iCheckIfFieldIsAvailable() {
-       checkIfExists(registerPage.getFirstName());
-       checkIfExists(registerPage.getSecondName());
-       checkIfExists(registerPage.getEmail());
-       checkIfExists(registerPage.getPhoneNumber());
-       checkIfExists(registerPage.getPassword());
-       checkIfExists(registerPage.getPasswordConfirm());
-       checkIfExists(registerPage.getRadioButton());
-       checkIfExists(registerPage.getCheckbox());
+        checkIfExists(registerPage.getFirstName());
+        checkIfExists(registerPage.getSecondName());
+        checkIfExists(registerPage.getEmail());
+        checkIfExists(registerPage.getPhoneNumber());
+        checkIfExists(registerPage.getPassword());
+        checkIfExists(registerPage.getPasswordConfirm());
+        checkIfExists(registerPage.getRadioButton());
+        checkIfExists(registerPage.getCheckbox());
     }
 
     @And("^I input \"([^\"]*)\" in First name, input \"([^\"]*)\" in Second name, check agreement checkbox$")
@@ -69,33 +70,29 @@ private WebDriver driver;
 
     @And("^I input \"([^\"]*)\" in email field$")
     public void iInputInEmailField(String email) throws Throwable {
-        String m = email + System.currentTimeMillis();
-        registerPage.getEmail().sendKeys(m);
-        //registerPage.getEmail().sendKeys(email);
+        String uniqueEmail = email + System.currentTimeMillis();
+        registerPage.getEmail().sendKeys(uniqueEmail);
     }
 
     @When("^I click on Continue button$")
     public void iClickOnContinueButton() {
-       registerPage.getContinueButton().click();
+
+        registerPage.getContinueButton().click();
     }
 
-    @Then("^User is registered$")
-    public void userIsRegistered() {
-    }
-    @Then("^I See Error message \"([^\"]*)\"$")
-    public void iSeeErrorMessage(String errMsg) throws Throwable {
-       Assert.assertEquals(registerPage.getPhoneDanger().getText(), errMsg);
-    }
-    private void checkIfExists(WebElement webElement){
+//    @Then("^User is registered$")
+//    public void userIsRegistered() {
+//    }
+
+    private void checkIfExists(WebElement webElement) {
         Assert.assertTrue(webElement.isDisplayed());
     }
 
 
     @Then("^I expect <negativeResult> stays on register page$")// negative result
     public void iExpectNegativeResultStaysOnRegisterPage() {
-       String URL = driver.getCurrentUrl();
-       Assert.assertEquals(URL, "http://www.demoshop24.com/index.php?route=account/register");
-
+        String URL = driver.getCurrentUrl();
+        Assert.assertEquals(URL, "http://www.demoshop24.com/index.php?route=account/register");
     }
 
 
