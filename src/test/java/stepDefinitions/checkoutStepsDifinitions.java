@@ -255,9 +255,6 @@ public class checkoutStepsDifinitions {
     @And("^User pressing Continue without toggling  \"([^\"]*)\"$")
     public void userPressingContinueWithoutToggling(String arg0) throws Throwable {
         Thread.sleep(2500);
-        //driver.findElement(By.id("button-payment-method")).click();
-        WebElement option2 = driver.findElement(By.cssSelector("#collapse-payment-method > div > div.buttons > div > input[type=checkbox]:nth-child(2)"));
-        assertFalse(option2.isSelected());
         driver.findElement(By.id("button-payment-method")).click();
     }
     @And("^Getting error$")
