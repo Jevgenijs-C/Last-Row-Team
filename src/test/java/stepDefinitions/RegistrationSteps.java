@@ -1,6 +1,5 @@
 package stepDefinitions;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -10,8 +9,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import pagesobjects.RegisterPage;
-
-import java.util.List;
 
 //import org.apache.xpath.operations.String;
 
@@ -72,7 +69,9 @@ private WebDriver driver;
 
     @And("^I input \"([^\"]*)\" in email field$")
     public void iInputInEmailField(String email) throws Throwable {
-        registerPage.getEmail().sendKeys(email);
+        String m = email + System.currentTimeMillis();
+        registerPage.getEmail().sendKeys(m);
+        //registerPage.getEmail().sendKeys(email);
     }
 
     @When("^I click on Continue button$")
@@ -92,7 +91,19 @@ private WebDriver driver;
     }
 
 
+    @Then("^I expect <negativeResult> stays on register page$")// negative result
+    public void iExpectNegativeResultStaysOnRegisterPage() {
+       String URL = driver.getCurrentUrl();
+       Assert.assertEquals(URL, "http://www.demoshop24.com/index.php?route=account/register");
 
+    }
+
+
+    @Then("^I expect <positiveResult> redirects to success page$")
+    public void iExpectPositiveResultRedirectsToSuccessPage() {
+        String URL1 = driver.getCurrentUrl();
+        Assert.assertEquals(URL1, "http://www.demoshop24.com/index.php?route=account/success");
+    }
 }
 
 
