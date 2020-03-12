@@ -34,6 +34,7 @@ Feature:
     And Enter E-Mail Address
     And Enter Password
     And Press Login
+    And Press Phones&PDAs on top panel
     And Add any product to cart
     And Press checkout
     And User is on Billing address
@@ -45,6 +46,7 @@ Feature:
     And Enter E-Mail Address
     And Enter Password
     And Press Login
+    And Press Phones&PDAs on top panel
     And Add any product to cart
     And Press checkout
     Then User is on Billing address
@@ -56,23 +58,32 @@ Feature:
     And Enter E-Mail Address
     And Enter Password
     And Press Login
+    And Press Phones&PDAs on top panel
     And Add any product to cart
     And Press checkout
+    Then User is on Billing address
+    And Press Continue
+    And On step three press continue
+    And On step four press continue
     And User is on Payment Method step(5th Step)
     Then Should be option to choose payment method (only one - cash)
 
   Scenario: Marking "I have read and agree to the Terms & Conditions" box
-
     When Press My Account in top menu
     And Choose Login
     And Enter E-Mail Address
     And Enter Password
     And Press Login
+    And Press Phones&PDAs on top panel
     And Add any product to cart
     And Press checkout
+    Then User is on Billing address
+    And Press Continue
+    And On step three press continue
+    And On step four press continue
     And User is on Payment Method step(5th Step)
     And User pressing Continue without toggling  "Terms & Conditions"
-    Then Getting error "Warning: You must agree to the Terms & Conditions!"
+    Then Getting error
 
   Scenario: Checkout process with out of stock products
     When Press Tablets in top bar menu

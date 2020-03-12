@@ -7,17 +7,27 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import pagesobjects.AgePage;
+
+import static org.junit.Assert.assertFalse;
+import static stepDefinitions.GoogleSteps.agePage;
+
 
 public class checkoutStepsDifinitions {
 
     private WebDriver driver;
     static WebShopPage webShopPage;
-
+    private static WebDriverWait wait;
 
     public checkoutStepsDifinitions() {
         this.driver = Hooks.driver;
         webShopPage = PageFactory.initElements(Hooks.driver, WebShopPage.class);
+        agePage = PageFactory.initElements(Hooks.driver, AgePage.class);
+
     }
     @Given("^I am on web shop page$")
     public void iAmOnWebShopPage() {
@@ -31,143 +41,248 @@ public class checkoutStepsDifinitions {
 ////////////////////////////Finding Checkout button on Checkout page////////////////////
     @When("^Add any product to cart$")
     public void addAnyProductToCart() {
-        driver.findElement(By.cssSelector("#content > div.row > div:nth-child(2) > div > div.image > a")).click();
-        driver.findElement(By.id("button-cart")).click();
+        webShopPage.clickIPhone();
+        webShopPage.clickAddToChart();
     }
 
     @And("^Pressing shopping cart$")
     public void pressingShoppingCart() {
-        driver.findElement(By.cssSelector("#top-links > ul > li:nth-child(4) > a")).click();
+        webShopPage.clickTopShoppingChartButton();
     }
 
     @Then("^Blue checkout button should be seen in right bottom corner$")
     public void blueCheckoutButtonShouldBeSeenInRightBottomCorner() {
-        driver.findElement(By.cssSelector("#content > div.buttons.clearfix > div.pull-right > a")).isEnabled();
+       webShopPage.existanceBlueCheckoutButton();
     }
-
 
 //////////////////////////////Checkout link in black popur window//////////////////////////////////////////
     @When("^Pick any product\\(s\\)$")
     public void pickAnyProductS() {
-        driver.findElement(By.cssSelector("#content > div.row > div:nth-child(2) > div > div.image > a")).click();
-        driver.findElement(By.id("button-cart")).click();
+        webShopPage.clickIPhone();
+        webShopPage.clickAddToChart();
     }
 
     @And("^Click on black window \\(Top right corner\\)$")
     public void clickOnBlackWindowTopRightCorner() {
-        driver.findElement(By.id("cart")).click();
+       webShopPage.clickBlackWindow();
     }
 
     @And("^Get popur window$")
     public void getPopurWindow() {
-        driver.findElement(By.cssSelector("#cart > ul")).click();
+        webShopPage.existancePopurWindow();
     }
 
     @Then("^On right side should be Checkout button$")
     public void onRightSideShouldBeCheckoutButton() {
-        driver.findElement(By.cssSelector("#cart > ul > li:nth-child(2) > div > p > a:nth-child(2)")).isEnabled();
+       webShopPage.existanceInternalCheckoutLink();
     }
 /////////////////////////////// User press checkout without logging in system - guest case/////////////////////
-    //UNABLE PASS//
+    //UNABLE PASS//already able but with dirty WAIT, need to use wait.until(ExpectedConditions.presenceOfElementLocated(By));
     @When("^Adding any product in cart$")
     public void addingAnyProductInCart() {
-        driver.findElement(By.cssSelector("#content > div.row > div:nth-child(2) > div > div.image > a")).click();
-        driver.findElement(By.id("button-cart")).click();
+        webShopPage.clickIPhone();
+        webShopPage.clickAddToChart();
     }
 
     @And("^Press checkout on top right corner$")
     public void pressCheckoutOnTopRightCorner() {
-        driver.findElement(By.cssSelector("#top-links > ul > li:nth-child(5) > a")).click();
+    webShopPage.clickTopCheckoutButton();
     }
 
     @Then("^<Guest Checkout> option should be available$")
-    public void guestCheckoutOptionShouldBeAvailable() {
-        driver.findElement(By.cssSelector("#collapse-checkout-option > div > div > div:nth-child(1) > div:nth-child(4)")).isEnabled();
+    public void guestCheckoutOptionShouldBeAvailable() throws InterruptedException {
+        Thread.sleep(5000);
+        webShopPage.existnaceGuestLink();
     }
 ///////////////////////////////User press checkout without logging in system - sign in case////////////
+    ///UNABLE PASS//already able but with dirty WAIT, need to use wait.until(ExpectedConditions.presenceOfElementLocated(By));
     @When("^Add any product in cart$")
     public void addAnyProductInCart() {
-        driver.findElement(By.cssSelector("#content > div.row > div:nth-child(2) > div > div.image > a")).click();
-        driver.findElement(By.id("button-cart")).click();
+        webShopPage.clickIPhone();
+        webShopPage.clickAddToChart();
     }
     @And("^Press checkout in top right corner$")
     public void pressCheckoutInTopRightCorner() {
-        driver.findElement(By.cssSelector("#top-links > ul > li:nth-child(5) > a")).click();
+        webShopPage.clickTopCheckoutButton();
     }
 
     @Then("^<Returning Customer> subtitle should be available$")
-    public void returningCustomerSubtitleShouldBeAvailable() {
-        driver.findElement(By.cssSelector("#collapse-checkout-option > div > div > div:nth-child(2)")).isEnabled();
+    public void returningCustomerSubtitleShouldBeAvailable() throws InterruptedException {
+        Thread.sleep(2500);
+        webShopPage.existanceReturningCustomer();
 
     }
 //////////////////////////////Using existing adress during purchasing process
     @When("^Press My Account in top menu$")
     public void pressMyAccountInTopMenu() {
+        driver.findElement(By.cssSelector("#top-links > ul > li.dropdown > a")).click();
     }
 
     @And("^Choose Login$")
     public void chooseLogin() {
+        driver.findElement(By.cssSelector(".list-inline  ul > li:nth-of-type(2) > a")).click();
     }
 
     @And("^Enter E-Mail Address$")
-    public void enterEMailAddress() {
+    public void enterEMailAddress() throws InterruptedException {
+        Thread.sleep(2000);
+       webShopPage.typeEmailField();
+        Thread.sleep(2500);
     }
-
     @And("^Enter Password$")
-    public void enterPassword() {
+    public void enterPassword() throws InterruptedException{
+        webShopPage.typePasswordField();
+        Thread.sleep(2500);
     }
 
     @And("^Press Login$")
     public void pressLogin() {
+        driver.findElement(By.cssSelector("form[method='post'] > input[value='Login']")).click();
+    }
+
+    @And("^Press Phones&PDAs on top panel$")
+    public void pressPhonesPDAsOnTopPanel()throws InterruptedException {
+        Thread.sleep(2500);
+        driver.findElement(By.cssSelector(".nav.navbar-nav > li:nth-of-type(6) > a")).click();
+
+    }
+    @And("^Add any product to cartt$")
+    public void addAnyProductToCartt() throws InterruptedException{
+        Thread.sleep(2500);
+        webShopPage.clickIPhone();
+        webShopPage.clickAddToChart();
     }
 
     @And("^Press checkout$")
-    public void pressCheckout() {
+    public void pressCheckout(){
+    webShopPage.clickTopChekoutLink();
     }
 
     @And("^User is on Billing address$")
     public void userIsOnBillingAddress() {
+        driver.findElement(By.cssSelector("#accordion > div:nth-child(2)")).isEnabled();
     }
 
     @Then("^Should be option use existing address$")
-    public void shouldBeOptionUseExistingAddress() {
+    public void shouldBeOptionUseExistingAddress() throws InterruptedException {
+        Thread.sleep(2500);
+        driver.findElement(By.cssSelector("#collapse-payment-address > div > form > div:nth-child(1)")).isEnabled();
+    }
+//////////////////////////////////////// Adding NEW address during purchasing process
+@When("^Press My Account in top menuu$")
+    public void pressMyAccountInTopMenuu() {
+        driver.findElement(By.cssSelector("#top-links > ul > li.dropdown > a")).click();
+}
+
+    @And("^Choose Loginn$")
+    public void chooseLoginn() {
+        driver.findElement(By.cssSelector(".list-inline  ul > li:nth-of-type(2) > a")).click();
     }
 
+    @And("^Enter E-Mail Addresss$")
+    public void enterEMailAddresss() throws InterruptedException {
+        Thread.sleep(2000);
+        webShopPage.typeEmailField();
+        Thread.sleep(2500);
+    }
+    @And("^Enter Passwordd$")
+    public void enterPasswordd() throws InterruptedException{
+        webShopPage.typePasswordField();
+        Thread.sleep(2500);
+    }
+
+    @And("^Press Loginn$")
+    public void pressLoginn() {
+        driver.findElement(By.cssSelector("form[method='post'] > input[value='Login']")).click();
+    }
+
+    @And("^Press Phones&PDAs on top panell$")
+    public void pressPhonesPDAsOnTopPanell()throws InterruptedException {
+        Thread.sleep(2500);
+        driver.findElement(By.cssSelector(".nav.navbar-nav > li:nth-of-type(6) > a")).click();
+
+    }
+    @And("^Add any product to carttt$")
+    public void addAnyProductToCarttt() throws InterruptedException{
+        Thread.sleep(2500);
+        webShopPage.clickIPhone();
+        webShopPage.clickAddToChart();
+    }
+
+    @And("^Press checkoutt$")
+    public void pressCheckoutt(){
+        webShopPage.clickTopChekoutLink();
+    }
+
+    @And("^User is on Billing addresss$")
+    public void userIsOnBillingAddresss() {
+        driver.findElement(By.cssSelector("#accordion > div:nth-child(2)")).isEnabled();
+    }
     @Then("^Should be option to add new address$")
-    public void shouldBeOptionToAddNewAddress() {
+    public void shouldBeOptionToAddNewAddress() throws InterruptedException {
+        Thread.sleep(2500);
+        driver.findElement(By.cssSelector("#collapse-payment-address > div > form > div:nth-child(3)")).isEnabled();
+    }
+////////////////////////////////Choosing payment method
+    @And("^Press Continue")
+    public void pressContinue() throws InterruptedException {
+        Thread.sleep(2500);
+        driver.findElement(By.id("button-payment-address")).click();
+    }
+    @And("^On step three press continue$")
+    public void onStepThreePressContinue() throws InterruptedException {
+        Thread.sleep(2500);
+        driver.findElement(By.id("button-shipping-address")).click();
+    }
+    @And("^On step four press continue$")
+    public void onStepFourPressContinue() throws InterruptedException {
+        Thread.sleep(2500);
+        driver.findElement(By.id("button-shipping-method")).click();
     }
 
     @And("^User is on Payment Method step\\((\\d+)th Step\\)$")
-    public void userIsOnPaymentMethodStepThStep(int arg0) {
+    public void userIsOnPaymentMethodStepThStep(int arg0) throws InterruptedException {
+        Thread.sleep(2500);
+        driver.findElement(By.id("collapse-payment-method")).isEnabled();
     }
 
     @Then("^Should be option to choose payment method \\(only one - cash\\)$")
-    public void shouldBeOptionToChoosePaymentMethodOnlyOneCash() {
+    public void shouldBeOptionToChoosePaymentMethodOnlyOneCash() throws InterruptedException {
+        Thread.sleep(2500);
     }
+//////////////////////////////////Marking "I have read and agree to the Terms & Conditions" box/////////////////////
 
     @And("^User pressing Continue without toggling  \"([^\"]*)\"$")
     public void userPressingContinueWithoutToggling(String arg0) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        Thread.sleep(2500);
+        //driver.findElement(By.id("button-payment-method")).click();
+        WebElement option2 = driver.findElement(By.cssSelector("#collapse-payment-method > div > div.buttons > div > input[type=checkbox]:nth-child(2)"));
+        assertFalse(option2.isSelected());
+        driver.findElement(By.id("button-payment-method")).click();
     }
-
-    @Then("^Getting error \"([^\"]*)\"$")
-    public void gettingError(String arg0) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    @And("^Getting error$")
+    public void gettingError() throws InterruptedException {
+        Thread.sleep(2500);
+        driver.findElement(By.cssSelector("#collapse-payment-method > div > div.alert.alert-danger.alert-dismissible")).isEnabled();
     }
-
+    ///////////////////////////////Checkout process with out of stock products///////////////////////
     @When("^Press Tablets in top bar menu$")
     public void pressTabletsInTopBarMenu() {
+        driver.findElement(By.cssSelector(".nav.navbar-nav > li:nth-of-type(4) > a")).click();
     }
 
     @And("^Choose \"([^\"]*)\" and add it to cart$")
-    public void chooseAndAddItToCart(String arg0) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void chooseAndAddItToCart(String arg0) {
+        driver.findElement(By.cssSelector("#content > div:nth-child(3) > div > div > div:nth-child(2) > div.caption > h4")).click();
     }
 
     @And("^Press checkout on top right side of menu$")
     public void pressCheckoutOnTopRightSideOfMenu() {
+        driver.findElement(By.cssSelector("#top-links > ul > li:nth-child(5) > a")).click();
+    }
+
+    @Then("^Getting error \"([^\"]*)\"$")
+    public void gettingError(String arg0) {
+        driver.findElement(By.cssSelector("a[title='Checkout'] > .hidden-md.hidden-sm.hidden-xs")).isEnabled();
     }
 }
