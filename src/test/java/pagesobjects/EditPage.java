@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 public class EditPage {
+    //TODO check path
     @FindBy (how = How.XPATH, using = "/html/body/div[2]/div/aside/div/a[2]")
     private WebElement editButton;
     @FindBy(how = How.NAME, using = "firstname")
