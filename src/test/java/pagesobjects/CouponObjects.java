@@ -95,6 +95,7 @@ public class CouponObjects<startTime> {
         shippingConfirm.click();
         assertEquals(startprice.getText(), finalprice.getText());
 
+
     }
 
 }
