@@ -5,58 +5,49 @@ Feature: Search field
     Given I am on web shop page
 
   @working_1
-  Scenario:
-    When I see Search field on the home page
-    And I press "About Us" in footer
-    And I see Search
-    And I press "Tablets"
-    Then I see Search field
+  Scenario: Search field is existing
+    When I see Search field
+    And I see Search on "About Us" page
+    Then I see Search field on "Tablets" page
 
   @working_2
-  Scenario:
-   When I type "HTC" in Search field
-   And The result is shown: "HTC"
-   And I push "Delivery information" in footer
-    And type "HTC" in Searching field
-   And I see the result: "HTC"
-   And I press "Tablets"
-    And I type "HTC" in Searching field
-   Then I see: "HTC"
+  Scenario: Search can be done from any page
+    When I input "HTC" in Search field
+    And The result is shown: "HTC"
+    And I enter "HTC" in Search while on "Delivery information" page
+    And I see the result: "HTC"
+    And I type "HTC" in Searching field while on "Tablets" page
+    Then I see: "HTC"
 
   @working_3
-  Scenario:
-   When I am on the home page I press Search button
-   And I type "world’s thinnest tablet" in Search field
-   And I tick "Product description" box
-    And I press Search
-   Then Result is not shown
+  Scenario:  Search can be done by Product description
+    When I press Search
+    And I type "world’s thinnest tablet" in Searching
+    And I tick Product description box
+    Then Result is not shown
 
   @working_4
-  Scenario:
-   When I press Search button
-   And I type "HTC" in Search field
-   And I tick "Subcategories" box
-   And I press Search
-   Then Result is shown: "HTC"
+  Scenario: Search can be done by Subcategories
+    When I press Search button
+    And I write "HTC" in Search
+    And I tick Subcategories
+    And I click Search
+    Then Result is "HTC"
 
   @working_5
-  Scenario:
-    When I type "Desktops" in Search field
-    And I press Search
-    And I see the result: "HTC" with pagination plus with opportunity to sort
-    And I press "Delivery information" in footer
-    And I type "iMAC" in Searching field
+  Scenario: Search list has page number and sorting option
+    When I Search "iMAC"
     And I see the result: "iMAC" with pagination plus with opportunity to sort
-    And I press "Software" in Search field
-    And I type "iMAC" in Search field
-    And I press Search
-    Then I see the result: "iMAC" with pagination as well as opportunity to sort
+    And I type "iMAC" in Search while on "Delivery information" page
+   Then Result is "iMAC" with pagination as well as opportunity to sort
 
-  @working_6
-  Scenario Outline:
-    When I am on the home page
-    And I type "iph" in Search field
-    And I press Search
-    Then Result is shown: "iphone"
+    @working_6
+  Scenario Outline: Short search
+    When I type: "<short>" in Search field
+    And Search is done
+    Then Result is shown: "<result>"
     Examples:
-      |  |
+      | short | result |
+      | iph   | iphone |
+      | ip    | ipod   |
+      | ip    | iphone |
