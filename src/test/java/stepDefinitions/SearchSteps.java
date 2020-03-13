@@ -43,23 +43,23 @@ public class SearchSteps {
 
     @And("^I see Search field on \"([^\"]*)\" page$")
     public void i_see_search_field_on_something_page(String strArg1) throws Throwable {
-        driver.findElement(By.xpath("/html/body/footer/div/div/div[1]/ul/li[1]/a")).click();
+        onlineShop.AboutUs();
         onlineShop.existenceSearchField();
     }
 
     @Then("^I see Search on \"([^\"]*)\" page$")
     public void i_see_search_on_something_page(String strArg1) throws Throwable {
-        driver.findElement(By.cssSelector("#menu a[href$='category&path=57']")).click();
-        onlineShop.existenceSearchField();
+       onlineShop.Tablets();
+       onlineShop.existenceSearchField();
     }
 
     //________2________________________________
 
     @When("^I input \"([^\"]*)\" in Search field$")
     public void i_input_something_in_search_field(String value) throws Throwable {
-        driver.findElement(By.xpath("//*[@id=\"search\"]/input")).clear();
-        driver.findElement(By.xpath("//*[@id=\"search\"]/input")).sendKeys(value);
-        driver.findElement(By.cssSelector(".btn.btn-default.btn-lg")).click();
+       driver.findElement(By.xpath("//*[@id=\"search\"]/input")).clear();
+       driver.findElement(By.xpath("//*[@id=\"search\"]/input")).sendKeys(value);
+       driver.findElement(By.cssSelector(".btn.btn-default.btn-lg")).click();
     }
 
     @And("^The result is shown$")
