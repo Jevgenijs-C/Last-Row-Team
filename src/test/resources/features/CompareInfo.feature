@@ -1,5 +1,6 @@
 Feature: Compare user account information with input data
 
+  @compare
   Scenario: As a logged in user I compare account information with input data at registration
     Given I log in to web app with e-mail "kasya1@mail.com", password "qwerty"
     When I go to Edit Account section
