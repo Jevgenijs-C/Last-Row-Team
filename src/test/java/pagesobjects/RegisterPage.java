@@ -8,7 +8,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 public class RegisterPage {
-    @FindBy(how = How.CSS, using = "#top-links > ul > li.dropdown.open > ul > li:nth-child(1) > a")
+    @FindBy(how = How.CSS, using = ".dropdown-menu a[href*=\"register\"]")
+    //@FindBy(how = How.CSS, using = "#top-links > ul > li.dropdown.open > ul > li:nth-child(1) > a")
     private WebElement registerButton;
     @FindBy(how = How.CSS, using = ".caret")
     private WebElement registerButtonPre;
