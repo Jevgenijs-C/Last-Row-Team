@@ -13,7 +13,7 @@ Feature: Search field
   @working_2
   Scenario: Search can be done from any page
     When I input "HTC" in Search field
-    And The result is shown: "HTC"
+    And The result is shown
     And I enter "HTC" in Search while on "Delivery information" page
     And I see the result: "HTC"
     And I type "HTC" in Searching field while on "Tablets" page
@@ -30,6 +30,7 @@ Feature: Search field
   Scenario: Search can be done by Subcategories
     When I press Search button
     And I write "HTC" in Search
+    And I choose Category
     And I tick Subcategories
     And I click Search
     Then Result is "HTC"
@@ -39,15 +40,12 @@ Feature: Search field
     When I Search "iMAC"
     And I see the result: "iMAC" with pagination plus with opportunity to sort
     And I type "iMAC" in Search while on "Delivery information" page
-   Then Result is "iMAC" with pagination as well as opportunity to sort
+    Then Result is "iMAC" with pagination as well as opportunity to sort
 
-    @working_6
-  Scenario Outline: Short search
-    When I type: "<short>" in Search field
-    And Search is done
-    Then Result is shown: "<result>"
-    Examples:
-      | short | result |
-      | iph   | iphone |
-      | ip    | ipod   |
-      | ip    | iphone |
+  @working_6
+  Scenario: Short search
+    When I text "ip"
+    And Get result "ipod, iphone"
+    And I type "iph"
+    Then Result is shown "iphone"
+

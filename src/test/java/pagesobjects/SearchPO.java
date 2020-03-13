@@ -1,12 +1,15 @@
 package pagesobjects;
 
 //import org.apache.xpath.operations.String;
+
 import gherkin.lexer.Th;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+
+import static org.junit.Assert.assertEquals;
 
 public class SearchPO {
     @FindBy(how = How.CSS, using = "#search > input")
@@ -21,8 +24,13 @@ public class SearchPO {
     private WebElement pageNumber;
     @FindBy(how = How.CSS, using = "#input-sort")
     private WebElement sorting;
-    @FindBy(how = How.CLASS_NAME, using = ".row")
-    private WebElement result;
+    @FindBy(how = How.CSS, using = "#content > div > div:nth-child(2) > select")
+    private WebElement category;
+    @FindBy(how = How.CSS, using = "#content > div > div:nth-child(2) > select > option:nth-child(18)")
+    private WebElement phones;
+    @FindBy(how = How.XPATH, using = "/html/body/footer/div/div/div[1]/ul/li[1]/a")
+    private WebElement aboutus;
+
 
     public java.lang.String getPageUrl() {
         return "http://demoshop24.com/";
@@ -32,11 +40,11 @@ public class SearchPO {
         searchField.isEnabled();
     }
 
-    public void existencepageNumber() {
+    public void existencePageNumber() {
         pageNumber.isEnabled();
     }
 
-    public void existencesorting() {
+    public void existenceSorting() {
         sorting.isEnabled();
     }
 
@@ -46,16 +54,19 @@ public class SearchPO {
         driver.get("http://demoshop24.com/");
     }
 
-    public WebElement getsearchField() {
+    public WebElement getSearchField() {
         return searchField;
     }
-    public WebElement getsearchButton() {
-        return searchButton;
+
+    public void SearchButton() {
+        searchButton.click();
     }
-    public WebElement getvalue() {
+
+    public WebElement getValue() {
         return value;
     }
-    public WebElement getresult() {
-        return result;
+
+    public void AboutUs() {
+        aboutus.click();
     }
 }

@@ -1,23 +1,17 @@
 package stepDefinitions;
 
-import com.sun.deploy.cache.BaseLocalApplicationProperties;
 import cucumber.api.java.en.Given;
-//import org.apache.xpath.operations.String;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-import pagesobjects.AgePage;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.When;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.And;
-import cucumber.api.junit.Cucumber;
-import org.junit.runner.RunWith;
 import pagesobjects.SearchPO;
-import org.openqa.selenium.support.ui.Select;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -65,29 +59,29 @@ public class SearchSteps {
     public void i_input_something_in_search_field(String value) throws Throwable {
         driver.findElement(By.xpath("//*[@id=\"search\"]/input")).clear();
         driver.findElement(By.xpath("//*[@id=\"search\"]/input")).sendKeys(value);
+        driver.findElement(By.cssSelector(".btn.btn-default.btn-lg")).click();
     }
 
-    @And("^The result is shown: \"([^\"]*)\"$")
-    public void the_result_is_shown_something(String result) throws Throwable {
-        assertTrue(driver.findElement(By.className(".row")).isDisplayed());
-
-        //driver.get("http://www.demoshop24.com/index.php?route=product/search&search=htc");
+    @And("^The result is shown$")
+    public void the_result_is_shown_something() throws Throwable {
+        driver.findElement(By.cssSelector("img[alt='HTC Touch HD']")).isEnabled();
     }
+
+    //driver.get("http://www.demoshop24.com/index.php?route=product/search&search=htc");
+
     @And("^I enter \"([^\"]*)\" in Search while on \"([^\"]*)\" page$")
     public void i_enter_something_in_search_while_on_something_page(String value, String strArg) throws Throwable {
         driver.findElement(By.xpath("/html/body/footer/div/div/div[1]/ul/li[1]/a")).click();
         driver.findElement(By.xpath("//*[@id=\"search\"]/input")).clear();
         driver.findElement(By.xpath("//*[@id=\"search\"]/input")).sendKeys(value);
+        driver.findElement(By.cssSelector(".btn.btn-default.btn-lg")).click();
     }
 
     @And("^I see the result: \"([^\"]*)\"$")
-    public void i_see_the_result_something(String result) throws Throwable {
-        //driver.get("http://www.demoshop24.com/index.php?route=product/search&search=htc");
-        assertTrue(result, driver.findElement(By.className(".product-thumb")).isDisplayed());
+    public void i_see_the_result_something(String result) {
+        driver.findElement(By.cssSelector("img[alt='HTC Touch HD']")).isEnabled();
     }
 
-//assertTrue(driver.findElement(By.className("w3-navbar")).isDisplayed());
-//    }
     @And("^I type \"([^\"]*)\" in Searching field while on \"([^\"]*)\" page$")
     public void i_type_something_in_searching_field_while_on_something_page(String value, String strArg) throws Throwable {
         driver.findElement(By.xpath("/html/body/footer/div/div/div[1]/ul/li[1]/a")).click();
@@ -114,19 +108,19 @@ public class SearchSteps {
     }
 
     @And("^I tick Product description box$")
-    public void i_tick_product_description_box(String name) throws Throwable {
-        WebElement checkbox = driver.findElement(By.cssSelector("#description"));
-            assertFalse(!checkbox.isSelected());
-            checkbox.click();
+    public void i_tick_product_description_box() throws Throwable {
+        WebElement checkbox = driver.findElement(By.cssSelector("input#description"));
+        //assertFalse(!checkbox.isSelected());
+        checkbox.click();
         assertTrue(checkbox.isSelected());
-       // driver.findElement(By.cssSelector("#content > p:nth-child(4) > label")).isSelected();
-        driver.findElement(By.cssSelector("#button-search")).click();
+        driver.findElement(By.cssSelector("input#button-search")).click();
     }
 
     @Then("^Result is not shown$")
     public void result_is_not_shown() throws Throwable {
-        driver.get("http://www.demoshop24.com/index.php?route=product/search&search=%22world%E2%80%99s%20thinnest%20tablet%22&description=true");
+        driver.findElement(By.cssSelector("#content > p:nth-child(7)")).isEnabled();
     }
+
     //_______________4_____________________________
 
     @When("^I press Search button$")
@@ -136,17 +130,22 @@ public class SearchSteps {
 
     @And("^I write \"([^\"]*)\" in Search$")
     public void i_write_something_in_search(String value) throws Throwable {
-        driver.findElement(By.xpath("//*[@id=\"search\"]/input")).clear();
-        driver.findElement(By.xpath("//*[@id=\"search\"]/input")).sendKeys(value);
+        driver.findElement(By.cssSelector("#input-search")).clear();
+        driver.findElement(By.cssSelector("#input-search")).sendKeys(value);
+    }
+
+    @And("^I choose Category$")
+    public void i_choose_category() throws Throwable {
+        driver.findElement(By.cssSelector("#content > div > div:nth-child(2) > select")).click();
+        driver.findElement(By.cssSelector("#content > div > div:nth-child(2) > select > option:nth-child(18)")).click();
     }
 
     @And("^I tick Subcategories$")
-    public void i_tick(String strArg1) throws Throwable {
-        WebElement checkbox = driver.findElement(By.cssSelector("#content > div > div:nth-child(3) > label > input[type=checkbox]"));
-        assertFalse(!checkbox.isSelected());
-        checkbox.click();
-        assertTrue(checkbox.isSelected());
-        // driver.findElement(By.cssSelector("#content > p:nth-child(4) > label")).isSelected();
+    public void i_tick_subcategories() throws Throwable {
+        WebElement checkboxes = driver.findElement(By.cssSelector("#content > div > div:nth-child(3) > label > input[type=checkbox]"));
+        //assertFalse(!checkbox.isSelected());
+        checkboxes.click();
+        assertTrue(checkboxes.isSelected());
         driver.findElement(By.cssSelector("#button-search")).click();
     }
 
@@ -166,11 +165,12 @@ public class SearchSteps {
     public void i_search_something(String value) throws Throwable {
         driver.findElement(By.xpath("//*[@id=\"search\"]/input")).clear();
         driver.findElement(By.xpath("//*[@id=\"search\"]/input")).sendKeys(value);
+        driver.findElement(By.cssSelector("#search > span > button")).click();
     }
 
     @And("^I see the result: \"([^\"]*)\" with pagination plus with opportunity to sort$")
     public void i_see_the_result_something_with_pagination_plus_with_opportunity_to_sort(String strArg1) throws Throwable {
-        throw new PendingException();
+        driver.findElement(By.cssSelector("#content > div:nth-child(8) > div > div > div.image > a > img")).isEnabled();
     }
 
     @And("^I type \"([^\"]*)\" in Search while on \"([^\"]*)\" page$")
@@ -178,28 +178,37 @@ public class SearchSteps {
         driver.findElement(By.xpath("/html/body/footer/div/div/div[1]/ul/li[1]/a")).click();
         driver.findElement(By.xpath("//*[@id=\"search\"]/input")).clear();
         driver.findElement(By.xpath("//*[@id=\"search\"]/input")).sendKeys(value);
+        driver.findElement(By.cssSelector("#search > span > button")).click();
     }
 
     @Then("^Result is \"([^\"]*)\" with pagination as well as opportunity to sort$")
     public void result_is_something_with_pagination_as_well_as_opportunity_to_sort(String strArg1) throws Throwable {
-        throw new PendingException();
+        driver.findElement(By.cssSelector("#content > div:nth-child(8) > div > div > div.image > a > img")).isEnabled();
     }
 
 //___________________6___________________________
 
-    @When("^I type: \"([^\"]*)\" in Search field$")
-    public void i_type_something_in_search_field(String value) throws Throwable {
+    @When("^I text \"([^\"]*)\"$")
+    public void i_text_something(String value) throws Throwable {
         driver.findElement(By.xpath("//*[@id=\"search\"]/input")).clear();
         driver.findElement(By.xpath("//*[@id=\"search\"]/input")).sendKeys(value);
+        driver.findElement(By.cssSelector("#search > span > button")).click();
     }
 
-    @And("^Search is done$")
-    public void search_is_done() throws Throwable {
-        driver.findElement(By.cssSelector("#button-search")).click();
+    @And("^Get result \"([^\"]*)\"$")
+    public void get_result_something(String arg) throws Throwable {
+        driver.findElement(By.cssSelector("#content > div:nth-child(8)")).isEnabled();
     }
 
-    @Then("^Result is shown: \"([^\"]*)\"$")
-    public void result_is_shown_something(String strArg1) throws Throwable {
-        throw new PendingException();
+    @And("^I type \"([^\"]*)\"$")
+    public void i_type_something(String value) throws Throwable {
+        driver.findElement(By.xpath("//*[@id=\"search\"]/input")).clear();
+        driver.findElement(By.xpath("//*[@id=\"search\"]/input")).sendKeys(value);
+        driver.findElement(By.cssSelector("#search > span > button")).click();
+    }
+
+    @Then("^Result is shown \"([^\"]*)\"$")
+    public void result_is_shown(String arg) throws Throwable {
+        driver.findElement(By.cssSelector("#content > div:nth-child(8) > div > div")).isEnabled();
     }
 }
