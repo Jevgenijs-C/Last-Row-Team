@@ -2,7 +2,7 @@ Feature: Search field
   As a User I want to check Search option
 
   Background:
-    Given I am on web shop page
+    Given I am on webshop page
 
   @working_1
   Scenario: Search field is existing

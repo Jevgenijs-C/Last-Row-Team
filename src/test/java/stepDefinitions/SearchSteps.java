@@ -31,8 +31,8 @@ public class SearchSteps {
     }
 //________1__________________________
 
-    @Given("^I am on web shop page$")
-    public void i_am_on_web_shop_page() {
+    @Given("^I am on webshop page$")
+    public void i_am_on_webshop_page() {
         driver.get("http://demoshop24.com/");
     }
 
