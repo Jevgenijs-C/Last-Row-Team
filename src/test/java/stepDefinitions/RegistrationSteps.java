@@ -75,14 +75,11 @@ public class RegistrationSteps {
     }
 
     @When("^I click on Continue button$")
-    public void iClickOnContinueButton() {
+    public void iClickOnContinueButton() throws InterruptedException {
 
         registerPage.getContinueButton().click();
     }
 
-//    @Then("^User is registered$")
-//    public void userIsRegistered() {
-//    }
 
     private void checkIfExists(WebElement webElement) {
         Assert.assertTrue(webElement.isDisplayed());
@@ -96,7 +93,7 @@ public class RegistrationSteps {
     }
 
 
-    @Then("^I expect <positiveResult> redirects to success page$")
+    @Then("^I expect <positiveResult> redirects to success page$")//positive result
     public void iExpectPositiveResultRedirectsToSuccessPage() {
         String URL1 = driver.getCurrentUrl();
         Assert.assertEquals(URL1, "http://www.demoshop24.com/index.php?route=account/success");
