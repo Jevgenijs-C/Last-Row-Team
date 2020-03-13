@@ -2,13 +2,11 @@ package stepDefinitions;
 
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
-//import org.apache.xpath.operations.String;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import pagesobjects.AgePage;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+//import org.apache.xpath.operations.String;
 
 public class GoogleSteps {
 
@@ -30,6 +28,7 @@ public class GoogleSteps {
     // Thread.sleep(1000);
       agePage.loggingIn(email, password);
   }
+
 
 
 }
