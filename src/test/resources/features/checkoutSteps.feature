@@ -39,7 +39,7 @@ Feature:
     And Press checkout
     And User is on Billing address
     Then Should be option use existing address
-
+#
   Scenario: Adding NEW address during purchasing process
     When Press My Account in top menu
     And Choose Login
@@ -51,7 +51,7 @@ Feature:
     And Press checkout
     Then User is on Billing address
     Then Should be option to add new address
-
+#
   Scenario: Choosing payment method
     When Press My Account in top menu
     And Choose Login
@@ -65,7 +65,6 @@ Feature:
     And Press Continue
     And On step three press continue
     And On step four press continue
-    And User is on Payment Method step(5th Step)
     Then Should be option to choose payment method (only one - cash)
 
   Scenario: Marking "I have read and agree to the Terms & Conditions" box
@@ -81,7 +80,6 @@ Feature:
     And Press Continue
     And On step three press continue
     And On step four press continue
-    And User is on Payment Method step(5th Step)
     And User pressing Continue without toggling  "Terms & Conditions"
     Then Getting error
 

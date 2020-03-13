@@ -27,6 +27,7 @@ public class checkoutStepsDifinitions {
         this.driver = Hooks.driver;
         webShopPage = PageFactory.initElements(Hooks.driver, WebShopPage.class);
         agePage = PageFactory.initElements(Hooks.driver, AgePage.class);
+        wait = new WebDriverWait(driver, 5);
 
     }
     @Given("^I am on web shop page$")
@@ -90,8 +91,7 @@ public class checkoutStepsDifinitions {
     }
 
     @Then("^<Guest Checkout> option should be available$")
-    public void guestCheckoutOptionShouldBeAvailable() throws InterruptedException {
-        Thread.sleep(5000);
+    public void guestCheckoutOptionShouldBeAvailable() {
         webShopPage.existnaceGuestLink();
     }
 ///////////////////////////////User press checkout without logging in system - sign in case////////////
@@ -108,42 +108,36 @@ public class checkoutStepsDifinitions {
 
     @Then("^<Returning Customer> subtitle should be available$")
     public void returningCustomerSubtitleShouldBeAvailable() throws InterruptedException {
-        Thread.sleep(2500);
         webShopPage.existanceReturningCustomer();
-
     }
 //////////////////////////////Using existing adress during purchasing process
     @When("^Press My Account in top menu$")
     public void pressMyAccountInTopMenu() {
-        driver.findElement(By.cssSelector("#top-links > ul > li.dropdown > a")).click();
+       webShopPage.clickAccountButton();
     }
 
     @And("^Choose Login$")
     public void chooseLogin() {
-        driver.findElement(By.cssSelector(".list-inline  ul > li:nth-of-type(2) > a")).click();
+        webShopPage.clickLoginInternalButton();
     }
 
     @And("^Enter E-Mail Address$")
     public void enterEMailAddress() throws InterruptedException {
-        Thread.sleep(2000);
        webShopPage.typeEmailField();
-        Thread.sleep(2500);
     }
     @And("^Enter Password$")
     public void enterPassword() throws InterruptedException{
         webShopPage.typePasswordField();
-        Thread.sleep(2500);
     }
 
     @And("^Press Login$")
     public void pressLogin() {
-        driver.findElement(By.cssSelector("form[method='post'] > input[value='Login']")).click();
+        webShopPage.clickBlueLoginButton();
     }
 
     @And("^Press Phones&PDAs on top panel$")
     public void pressPhonesPDAsOnTopPanel()throws InterruptedException {
-        Thread.sleep(2500);
-        driver.findElement(By.cssSelector(".nav.navbar-nav > li:nth-of-type(6) > a")).click();
+        webShopPage.clickPhonesAndPDAs();
 
     }
     @And("^Add any product to cartt$")
@@ -165,41 +159,36 @@ public class checkoutStepsDifinitions {
 
     @Then("^Should be option use existing address$")
     public void shouldBeOptionUseExistingAddress() throws InterruptedException {
-        Thread.sleep(2500);
-        driver.findElement(By.cssSelector("#collapse-payment-address > div > form > div:nth-child(1)")).isEnabled();
+        webShopPage.existanceUseExistingAddress();
     }
 //////////////////////////////////////// Adding NEW address during purchasing process
 @When("^Press My Account in top menuu$")
     public void pressMyAccountInTopMenuu() {
-        driver.findElement(By.cssSelector("#top-links > ul > li.dropdown > a")).click();
+    webShopPage.clickAccountButton();
 }
 
     @And("^Choose Loginn$")
     public void chooseLoginn() {
-        driver.findElement(By.cssSelector(".list-inline  ul > li:nth-of-type(2) > a")).click();
+        webShopPage.clickLoginInternalButton();
     }
 
     @And("^Enter E-Mail Addresss$")
     public void enterEMailAddresss() throws InterruptedException {
-        Thread.sleep(2000);
         webShopPage.typeEmailField();
-        Thread.sleep(2500);
     }
     @And("^Enter Passwordd$")
     public void enterPasswordd() throws InterruptedException{
         webShopPage.typePasswordField();
-        Thread.sleep(2500);
     }
 
     @And("^Press Loginn$")
     public void pressLoginn() {
-        driver.findElement(By.cssSelector("form[method='post'] > input[value='Login']")).click();
+        webShopPage.clickBlueLoginButton();
     }
 
     @And("^Press Phones&PDAs on top panell$")
     public void pressPhonesPDAsOnTopPanell()throws InterruptedException {
-        Thread.sleep(2500);
-        driver.findElement(By.cssSelector(".nav.navbar-nav > li:nth-of-type(6) > a")).click();
+        webShopPage.clickPhonesAndPDAs();
 
     }
     @And("^Add any product to carttt$")
@@ -220,37 +209,37 @@ public class checkoutStepsDifinitions {
     }
     @Then("^Should be option to add new address$")
     public void shouldBeOptionToAddNewAddress() throws InterruptedException {
-        Thread.sleep(2500);
-        driver.findElement(By.cssSelector("#collapse-payment-address > div > form > div:nth-child(3)")).isEnabled();
+        webShopPage.existanceAddingNewAddress();
     }
 ////////////////////////////////Choosing payment method
     @And("^Press Continue")
     public void pressContinue() throws InterruptedException {
-        Thread.sleep(2500);
-        driver.findElement(By.id("button-payment-address")).click();
+        webShopPage.clickButtonPaymentAddress();
     }
     @And("^On step three press continue$")
     public void onStepThreePressContinue() throws InterruptedException {
         Thread.sleep(2500);
-        driver.findElement(By.id("button-shipping-address")).click();
+        webShopPage.clickButtonShippingAddress();
     }
     @And("^On step four press continue$")
     public void onStepFourPressContinue() throws InterruptedException {
-        Thread.sleep(2500);
-        driver.findElement(By.id("button-shipping-method")).click();
-    }
-
-    @And("^User is on Payment Method step\\((\\d+)th Step\\)$")
-    public void userIsOnPaymentMethodStepThStep(int arg0) throws InterruptedException {
-        Thread.sleep(2500);
-        driver.findElement(By.id("collapse-payment-method")).isEnabled();
+       webShopPage.clickButtonShippingMethod();
     }
 
     @Then("^Should be option to choose payment method \\(only one - cash\\)$")
     public void shouldBeOptionToChoosePaymentMethodOnlyOneCash() throws InterruptedException {
         Thread.sleep(2500);
+        driver.findElement(By.cssSelector("#collapse-payment-method > div > div.radio")).isEnabled();
     }
 //////////////////////////////////Marking "I have read and agree to the Terms & Conditions" box///////////////////
+    @And("^On step three press continuee$")
+        public void onStepThreePressContinuee() throws InterruptedException {
+    webShopPage.clickButtonShippingAddress();
+}
+    @And("^On step four press continuee$")
+        public void onStepFourPressContinuee() throws InterruptedException {
+        webShopPage.clickButtonShippingMethod();
+    }
 
     @And("^User pressing Continue without toggling  \"([^\"]*)\"$")
     public void userPressingContinueWithoutToggling(String arg0) throws Throwable {
